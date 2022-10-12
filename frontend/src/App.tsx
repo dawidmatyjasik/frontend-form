@@ -1,11 +1,15 @@
-import "./App.css";
-import Dashboard from "./components/Dashboard";
+import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import { Dashboard } from "./components/Dashboard";
+
+const mdTheme = createTheme();
 
 function App() {
   return (
-    <div className="App">
+    <ThemeProvider theme={mdTheme}>
+      <CssBaseline />
       <Dashboard />
-    </div>
+    </ThemeProvider>
   );
 }
 
