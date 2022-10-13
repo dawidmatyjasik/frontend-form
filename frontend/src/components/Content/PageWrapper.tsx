@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Toolbar } from "@mui/material";
+import { Footer } from "../Footer/Footer";
 
 interface Props {
   children?: React.ReactChild;
@@ -19,8 +20,9 @@ export const PageWrapper = ({ children }: Props) => {
         overflow: "auto",
       }}
     >
-      {children}
       <Toolbar />
+      {children}
+      <Footer />
     </Box>
   );
 };

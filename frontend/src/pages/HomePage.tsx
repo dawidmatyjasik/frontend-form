@@ -42,7 +42,6 @@ export const HomePage = () => {
           </Paper>
         </Grid>
       </Grid>
-      <Footer />
     </Container>
   );
 };
