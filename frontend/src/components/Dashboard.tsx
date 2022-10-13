@@ -2,7 +2,8 @@ import { useState } from "react";
 import Box from "@mui/material/Box";
 import { Navbar } from "./Navbar/Navbar";
 import { Sidebar } from "./Sidebar/Sidebar";
-import { Content } from "./Content/Content";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HomePage } from "../pages/HomePage";
 
 export const Dashboard = () => {
   const [open, setOpen] = useState<boolean>(true);
@@ -14,7 +15,9 @@ export const Dashboard = () => {
     <Box sx={{ display: "flex" }}>
       <Navbar toggleDrawer={toggleDrawer} open={open} />
       <Sidebar toggleDrawer={toggleDrawer} open={open} />
-      <Content />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+      </Routes>
     </Box>
   );
 };
