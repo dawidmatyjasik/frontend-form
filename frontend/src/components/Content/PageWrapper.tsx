@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Toolbar } from "@mui/material";
+import { Box, Toolbar, Container } from "@mui/material";
 import { Footer } from "../Footer/Footer";
 
 interface Props {
@@ -21,7 +21,9 @@ export const PageWrapper = ({ children }: Props) => {
       }}
     >
       <Toolbar />
-      {children}
+      <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        {children}
+      </Container>
       <Footer />
     </Box>
   );

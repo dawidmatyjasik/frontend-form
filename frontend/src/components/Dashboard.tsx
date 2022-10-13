@@ -5,6 +5,7 @@ import { Sidebar } from "./Sidebar/Sidebar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { HomePage } from "../pages/HomePage";
 import { PageWrapper } from "./Content/PageWrapper";
+import { StudentsPage } from "../pages/StudentsPage";
 
 export const Dashboard = () => {
   const [open, setOpen] = useState<boolean>(true);
@@ -19,6 +20,7 @@ export const Dashboard = () => {
       <PageWrapper>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/student" element={<StudentsPage />} />
         </Routes>
       </PageWrapper>
     </Box>
