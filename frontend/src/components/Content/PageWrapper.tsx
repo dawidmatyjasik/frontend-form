@@ -3,7 +3,7 @@ import { Box, Toolbar, Container } from "@mui/material";
 import { Footer } from "../Footer/Footer";
 
 interface Props {
-  children?: React.ReactChild;
+  children?: React.ReactNode;
 }
 
 export const PageWrapper = ({ children }: Props) => {
