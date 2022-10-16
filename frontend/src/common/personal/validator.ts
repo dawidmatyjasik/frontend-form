@@ -2,11 +2,17 @@ import * as Yup from "yup";
 import { personalEnum } from "../enum";
 
 export const personalValidator = Yup.object().shape({
-    [personalEnum.firstName]: Yup.string().required("Imię jest wymagane"),
-    [personalEnum.lastName]: Yup.string().required("Nazwisko jest wymagane"),
-    [personalEnum.email]: Yup.string().email("Błędny format").required("Email jest wymagany"),
-    [personalEnum.phone]: Yup.number()
-      .integer()
-      .typeError("Podaj poprawny numer telefonu")
-      .required("Numer telefonu jest wymagany"),
+  [personalEnum.lastName]: Yup.string().required("Pole wymagane"),
+    [personalEnum.firstName]: Yup.string().required("Pole wymagane"),
+    [personalEnum.pesel]: Yup.string().required("Pole wymagane"),
+    [personalEnum.dateOfBirth]: Yup.string().required("Pole wymagane"),
+    [personalEnum.placeOfBirth]: Yup.string().required("Pole wymagane"),
+    [personalEnum.gender]: Yup.string().required("Pole wymagane"),
+    [personalEnum.phoneNumber]: Yup.string().required("Pole wymagane"),
+    [personalEnum.zipCode]: Yup.string().required("Pole wymagane"),
+    [personalEnum.city]: Yup.string().required("Pole wymagane"),
+    [personalEnum.street]: Yup.string().required("Pole wymagane"),
+    [personalEnum.streetNumber]: Yup.string().required("Pole wymagane"),
+    [personalEnum.blackList]: Yup.string().required("Pole wymagane"),
+    [personalEnum.assignedProject]: Yup.string().required("Pole wymagane"),
   });
