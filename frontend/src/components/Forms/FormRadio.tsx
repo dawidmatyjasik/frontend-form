@@ -8,14 +8,12 @@ import {
 } from "@mui/material";
 import { useField, useFormikContext } from "formik";
 
-const options = ["Mężczyzna", "Kobieta"];
-
 interface Props {
   name: string;
   label: string;
-  legend?: string;
   options?: any;
   row?: boolean;
+  componentProps?: any;
 }
 
 interface ConfigFormControl {
@@ -25,8 +23,8 @@ interface ConfigFormControl {
 export const FormRadio = ({
   name,
   label,
-  legend,
   row,
+  options,
   ...otherProps
 }: Props) => {
   const [field, meta] = useField(name);
@@ -51,7 +49,7 @@ export const FormRadio = ({
     <FormControl {...configFormControl}>
       <FormLabel component="legend">{label}</FormLabel>
       <RadioGroup row={row}>
-        {options?.map((item, idx) => (
+        {options?.map((item: string, idx: number) => (
           <FormControlLabel
             key={idx}
             control={<Radio {...configRadio} value={idx + 1} />}
