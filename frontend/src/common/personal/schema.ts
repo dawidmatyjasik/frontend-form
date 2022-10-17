@@ -11,11 +11,19 @@ export const personalSchema = [
         name: personalEnum.lastName,
         label: 'Nazwisko',
         Component: FormTextField,
+        inputProps: {
+            xs: 12,
+            sm: 6,
+        }
     },
     {
         name: personalEnum.firstName,
         label: 'Imię',
         Component: FormTextField,
+        inputProps: {
+            xs: 12,
+            sm: 6,
+        }
     },
     {
         name: personalEnum.pesel,
