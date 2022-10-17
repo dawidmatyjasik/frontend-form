@@ -1,14 +1,9 @@
-import React from "react";
-import { Formik, Form } from "formik";
-import { Container, Grid, Typography } from "@mui/material";
-import { FormField } from "../../components/Forms/FormField";
+import { Grid } from "@mui/material";
 import { FormButton } from "../../components/Forms/FormButton";
-import { personalValidator } from "../../common/personal/validator";
-import { personalInit } from "../../common/personal/init";
-import { personalSchema } from "../../common/personal/schema";
+import { personalValidator } from "../../../../common/personal/validator";
+import { personalInit } from "../../../../common/personal/init";
 import { FormWrapper } from "../../components/Content/FormWrapper";
 import { Header } from "../../components/Content/Header";
-import { useFormikContext, useField } from "formik";
 import { Content } from "./Content";
 
 interface Input {
