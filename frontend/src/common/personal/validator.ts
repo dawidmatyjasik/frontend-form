@@ -14,5 +14,6 @@ export const personalValidator = Yup.object().shape({
     [personalEnum.street]: Yup.string().required("Pole wymagane"),
     [personalEnum.streetNumber]: Yup.string().required("Pole wymagane"),
     [personalEnum.blackList]: Yup.string().required("Pole wymagane"),
+    [personalEnum.blackListReason]: Yup.string(),
     [personalEnum.assignedProject]: Yup.string().required("Pole wymagane"),
   });

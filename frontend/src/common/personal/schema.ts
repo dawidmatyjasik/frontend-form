@@ -1,10 +1,10 @@
 import { FormSelect } from "../../components/Forms/FormSelect";
 import { FormTextField } from "../../components/Forms/FormTextField";
 import { personalEnum } from "../enum";
-import countries from "../../data/countries.json";
-import { assignedProject } from "../../data/data";
-import { FormCheckbox } from "../../components/Forms/FormCheckbox";
+import { assignedProject, gender } from "../../data/data";
 import { FormRadio } from "../../components/Forms/FormRadio";
+import { FormSwitch } from "../../components/Forms/FormSwitch";
+import { FormConditionalTextField } from "../../components/Forms/FormConditionalTextField";
 
 export const personalSchema = [
     {
@@ -36,7 +36,9 @@ export const personalSchema = [
         name: personalEnum.gender,
         label: 'Płeć',
         Component: FormRadio,
-
+        componentProps: {
+            options: gender,
+        },
     },
     {
         name: personalEnum.phoneNumber,
@@ -66,7 +68,15 @@ export const personalSchema = [
     {
         name: personalEnum.blackList,
         label: 'Czarna lista',
-        Component: FormTextField,
+        Component: FormSwitch,
+    }, 
+    {
+        name: personalEnum.blackListReason,
+        label: 'Przyczyna wpisania na czarną listę',
+        Component: FormConditionalTextField,
+        componentProps: {
+            referer: personalEnum.blackList,
+        },
     }, 
        {
         name: personalEnum.assignedProject,

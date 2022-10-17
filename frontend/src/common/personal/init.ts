@@ -13,5 +13,6 @@ export const personalInit = {
     [personalEnum.street]: "",
     [personalEnum.streetNumber]: "",
     [personalEnum.blackList]: false,
+    [personalEnum.blackListReason]: '',
     [personalEnum.assignedProject]: "",
 }

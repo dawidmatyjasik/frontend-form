@@ -4,3 +4,5 @@ export const assignedProject = {
     project3: 'Projekt 3',
     project4: 'Projekt 4',
 }
+
+export const gender = ['Mężczyzna', 'Kobieta']
