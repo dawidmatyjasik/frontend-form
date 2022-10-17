@@ -8,6 +8,8 @@ import { personalInit } from "../../common/personal/init";
 import { personalSchema } from "../../common/personal/schema";
 import { FormWrapper } from "../../components/Content/FormWrapper";
 import { Header } from "../../components/Content/Header";
+import { useFormikContext, useField } from "formik";
+import { Content } from "./Content";
 
 interface Input {
   Component?: any;
@@ -17,20 +19,12 @@ interface Input {
   componentProps?: any;
 }
 
-export const StudentsPage = () => {
+export const PersonalPage = () => {
   return (
     <FormWrapper init={personalInit} validator={personalValidator}>
       <Header title="Dane osobowe" />
-      {personalSchema.map((input) => {
-        const { Component, label, name, inputProps, componentProps }: Input =
-          input;
-        return (
-          <Grid item {...inputProps} key={name} xs={12}>
-            <Component name={name} label={label} {...componentProps} />
-          </Grid>
-        );
-      })}
-      <Grid item xs={4} my={2}>
+      <Content />
+      <Grid item xs={12} sm={4} my={2}>
         <FormButton>Dodaj użytkownika</FormButton>
       </Grid>
     </FormWrapper>

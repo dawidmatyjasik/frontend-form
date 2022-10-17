@@ -20,28 +20,28 @@ export const mainListItems = (
         <ListItemText primary="Dashboard" />
       </ListItemButton>
     </Link>
-    <Link to="/student">
+    <Link to="/personal">
       <ListItemButton>
         <ListItemIcon>
           <ShoppingCartIcon />
         </ListItemIcon>
-        <ListItemText primary="Students" />
+        <ListItemText primary="Dane osobowe" />
       </ListItemButton>
     </Link>
-    <Link to="/class">
+    <Link to="/project">
       <ListItemButton>
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
-        <ListItemText primary="Classes" />
+        <ListItemText primary="Dane projektowe" />
       </ListItemButton>
     </Link>
-    <Link to="/teacher">
+    <Link to="/controls">
       <ListItemButton>
         <ListItemIcon>
           <BarChartIcon />
         </ListItemIcon>
-        <ListItemText primary="Teachers" />
+        <ListItemText primary="Kontrole" />
       </ListItemButton>
     </Link>
   </>

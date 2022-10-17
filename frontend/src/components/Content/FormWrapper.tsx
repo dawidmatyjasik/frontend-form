@@ -1,6 +1,6 @@
 import React from "react";
 import { Formik, Form } from "formik";
-import { Grid } from "@mui/material";
+import { Grid, Paper } from "@mui/material";
 
 //TODO check types
 interface Props {
@@ -21,9 +21,11 @@ export const FormWrapper = ({ init, validator, children }: Props) => {
       }}
     >
       <Form>
-        <Grid container spacing={2}>
-          {children}
-        </Grid>
+        <Paper sx={{ p: 4, display: "flex", flexDirection: "column" }}>
+          <Grid container spacing={2}>
+            {children}
+          </Grid>
+        </Paper>
       </Form>
     </Formik>
   );
