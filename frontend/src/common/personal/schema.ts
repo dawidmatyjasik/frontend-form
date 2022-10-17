@@ -1,16 +1,17 @@
 import { FormSelect } from "../../components/Forms/FormSelect";
-import { FormTextField } from "../../components/Forms/FormTextField";
+import { FormField } from "../../components/Forms/FormField";
 import { personalEnum } from "../enum";
 import { assignedProject, gender } from "../../data/data";
 import { FormRadio } from "../../components/Forms/FormRadio";
 import { FormSwitch } from "../../components/Forms/FormSwitch";
 import { FormConditionalTextField } from "../../components/Forms/FormConditionalTextField";
+import { FormDatePicker } from "../../components/Forms/FormDatePicker";
 
 export const personalSchema = [
     {
         name: personalEnum.lastName,
         label: 'Nazwisko',
-        Component: FormTextField,
+        Component: FormField,
         inputProps: {
             xs: 12,
             sm: 6,
@@ -19,7 +20,7 @@ export const personalSchema = [
     {
         name: personalEnum.firstName,
         label: 'Imię',
-        Component: FormTextField,
+        Component: FormField,
         inputProps: {
             xs: 12,
             sm: 6,
@@ -28,17 +29,17 @@ export const personalSchema = [
     {
         name: personalEnum.pesel,
         label: 'Pesel',
-        Component: FormTextField,
+        Component: FormField,
     },
     {
         name: personalEnum.dateOfBirth,
         label: 'Data urodzenia',
-        Component: FormTextField,
+        Component: FormDatePicker,
     },
     {
         name: personalEnum.placeOfBirth,
         label: 'Miejsce urodzenia',
-        Component: FormTextField,
+        Component: FormField,
     },
     {
         name: personalEnum.gender,
@@ -51,27 +52,28 @@ export const personalSchema = [
     {
         name: personalEnum.phoneNumber,
         label: 'Numer telefonu',
-        Component: FormTextField,
+        Component: FormField,
+        type: 'tel',
     },
     {
         name: personalEnum.zipCode,
         label: 'Kod pocztowy',
-        Component: FormTextField,
+        Component: FormField,
     },
     {
         name: personalEnum.city,
         label: 'Miasto',
-        Component: FormTextField,
+        Component: FormField,
     },
     {
         name: personalEnum.street,
         label: 'Ulica',
-        Component: FormTextField,
+        Component: FormField,
     },
     {
         name: personalEnum.streetNumber,
         label: 'Numer domu',
-        Component: FormTextField,
+        Component: FormField,
     },
     {
         name: personalEnum.blackList,

@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Form } from "formik";
 import { Container, Grid, Typography } from "@mui/material";
-import { FormTextField } from "../../components/Forms/FormTextField";
+import { FormField } from "../../components/Forms/FormField";
 import { FormButton } from "../../components/Forms/FormButton";
 import { personalValidator } from "../../common/personal/validator";
 import { personalInit } from "../../common/personal/init";

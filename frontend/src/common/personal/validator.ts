@@ -5,7 +5,7 @@ export const personalValidator = Yup.object().shape({
   [personalEnum.lastName]: Yup.string().required("Pole wymagane"),
     [personalEnum.firstName]: Yup.string().required("Pole wymagane"),
     [personalEnum.pesel]: Yup.string().required("Pole wymagane"),
-    [personalEnum.dateOfBirth]: Yup.string().required("Pole wymagane"),
+    [personalEnum.dateOfBirth]: Yup.date().required("Pole wymagane"),
     [personalEnum.placeOfBirth]: Yup.string().required("Pole wymagane"),
     [personalEnum.gender]: Yup.string().required("Pole wymagane"),
     [personalEnum.phoneNumber]: Yup.string().required("Pole wymagane"),

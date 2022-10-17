@@ -5,6 +5,7 @@ import { useField } from "formik";
 interface Props {
   name: string;
   label: string;
+  type?: string;
 }
 
 interface Config extends Props {
@@ -17,12 +18,13 @@ interface Config extends Props {
   variant: any;
 }
 
-export const FormTextField = ({ name, ...otherProps }: Props) => {
+export const FormField = ({ name, type = "text", ...otherProps }: Props) => {
   const [field, mata] = useField(name);
 
   const configTextfield: Config = {
     ...field,
     ...otherProps,
+    type,
     fullWidth: true,
     variant: "outlined",
   };
