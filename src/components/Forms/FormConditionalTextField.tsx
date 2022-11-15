@@ -1,6 +1,6 @@
 import React from "react";
 import { TextField } from "@mui/material";
-import { useField, useFormikContext } from "formik";
+import { FormikContextType, useField, useFormikContext } from "formik";
 
 interface Props {
   name: string;
@@ -15,11 +15,12 @@ interface Config extends Props {
   onChange: (e: React.ChangeEvent<any>) => void;
   value: string;
   variant: any;
+  referer?: string[];
 }
 
 export const FormConditionalTextField = ({ name, ...otherProps }: Props) => {
   const [field, mata] = useField(name);
-  const { values } = useFormikContext();
+  const { values }: FormikContextType<any> = useFormikContext();
 
   const configTextfield: Config = {
     ...field,
@@ -33,7 +34,9 @@ export const FormConditionalTextField = ({ name, ...otherProps }: Props) => {
     configTextfield.helperText = mata.error;
   }
 
-  if (!values?.blackList) {
+  const refs = configTextfield?.referer?.map((el) => values[el]);
+
+  if (refs?.every((ref) => ref !== true)) {
     return <></>;
   }
 
