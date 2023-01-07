@@ -7,8 +7,8 @@ interface Input {
   Component?: any;
   label: string;
   name: string;
-  inputProps?: any;
-  componentProps?: any;
+  inputProps?: object;
+  componentProps?: object;
 }
 
 export const Content = () => {
