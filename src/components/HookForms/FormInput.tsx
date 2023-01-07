@@ -4,15 +4,16 @@ import { Grid, TextField, TextFieldProps } from "@mui/material";
 
 type FormInputProps = {
   name: string;
+  props?: {};
 } & TextFieldProps;
 
-const FormInput: FC<FormInputProps> = ({ name, ...otherProps }) => {
+const FormInput: FC<FormInputProps> = ({ name, props, ...otherProps }) => {
   const {
     control,
     formState: { errors },
   } = useFormContext();
   return (
-    <Grid item xs={12}>
+    <Grid item xs={12} {...props}>
       <Controller
         control={control}
         name={name}

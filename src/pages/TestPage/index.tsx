@@ -1,10 +1,11 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { object, string, TypeOf } from "zod";
+import { date, object, string, TypeOf } from "zod";
 import { FC } from "react";
 import FormInput from "../../components/HookForms/FormInput";
 import FormWrapper from "../../components/HookForms/FormWrapper";
 import { FormButton } from "../../components/HookForms/FormButton";
+import FormInputDate from "../../components/HookForms/FormInputDate";
 
 const loginSchema = object({
   fullName: string(),
@@ -12,6 +13,7 @@ const loginSchema = object({
   age: string(),
   password: string().min(1, "err"),
   confirmPassword: string().min(1, "err"),
+  date: date(),
 }).refine((data) => data.password === data.confirmPassword, {
   path: ["passwordConfirm"],
   message: "Passwords do not match",
@@ -26,8 +28,8 @@ export const TestPage: FC = () => {
     age: "",
     password: "",
     confirmPassword: "",
+    date: new Date(),
   };
-
   const methods = useForm<ILogin>({
     resolver: zodResolver(loginSchema),
     defaultValues,
@@ -36,12 +38,16 @@ export const TestPage: FC = () => {
   const onSubmitHandler: SubmitHandler<ILogin> = (values: ILogin) => {
     console.log(values);
   };
-  console.log("123");
   return (
     <>
       <FormWrapper methods={methods} onSubmitHandler={onSubmitHandler}>
-        <FormInput label="Fullname" name="fullName" />
-        <FormInput label="Email" type="email" name="email" />
+        <FormInput label="Fullname" name="fullName" props={{ xs: 12, sm: 6 }} />
+        <FormInput
+          label="Email"
+          type="email"
+          name="email"
+          props={{ xs: 12, sm: 6 }}
+        />
         <FormInput label="Age" type="number" name="age" />
         <FormInput label="Password" type="password" name="password" />
         <FormInput
@@ -49,6 +55,7 @@ export const TestPage: FC = () => {
           type="password"
           name="confirmPassword"
         />
+        <FormInputDate name="date" label="Date" />
         <FormButton>Dodaj użytkownika</FormButton>
       </FormWrapper>
     </>
