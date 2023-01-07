@@ -28,6 +28,14 @@ export const mainListItems = (
         <ListItemText primary="Dane osobowe" />
       </ListItemButton>
     </Link>
+    <Link to="/test">
+      <ListItemButton>
+        <ListItemIcon>
+          <ShoppingCartIcon />
+        </ListItemIcon>
+        <ListItemText primary="Strona testowa" />
+      </ListItemButton>
+    </Link>
     <Link to="/project">
       <ListItemButton>
         <ListItemIcon>
