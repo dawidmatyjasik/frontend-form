@@ -6,14 +6,6 @@ import { FormWrapper } from "../../components/Content/FormWrapper";
 import { Header } from "../../components/Content/Header";
 import { Content } from "./Content";
 
-interface Input {
-  Component?: any;
-  label: string;
-  name: string;
-  inputProps?: any;
-  componentProps?: any;
-}
-
 export const PersonalPage = () => {
   return (
     <FormWrapper init={personalInit} validator={personalValidator}>
