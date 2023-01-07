@@ -1,12 +1,13 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { date, object, string, TypeOf, number } from "zod";
+import { date, object, string, TypeOf, number, boolean } from "zod";
 import { FC } from "react";
 import FormInput from "../../components/HookForms/FormInput";
 import FormWrapper from "../../components/HookForms/FormWrapper";
 import { FormButton } from "../../components/HookForms/FormButton";
 import FormInputDate from "../../components/HookForms/FormInputDate";
 import FormInputRadio from "../../components/HookForms/FormInputRadio";
+import FormInputSwitch from "../../components/HookForms/FormInputSwitch";
 
 const loginSchema = object({
   // fullName: string(),
@@ -15,7 +16,8 @@ const loginSchema = object({
   // password: string().min(1, "err"),
   // confirmPassword: string().min(1, "err"),
   // date: date(),
-  gender: number().nullable(),
+  // gender: number().nullable(),
+  blackList: boolean(),
 });
 // .refine((data) => data.password === data.confirmPassword, {
 //   path: ["passwordConfirm"],
@@ -34,7 +36,8 @@ export const TestPage: FC = () => {
     // password: "",
     // confirmPassword: "",
     // date: new Date(),
-    gender: 1,
+    // gender: 1,
+    blackList: false,
   };
   const methods = useForm<ILogin>({
     resolver: zodResolver(loginSchema),
@@ -63,6 +66,7 @@ export const TestPage: FC = () => {
         />
         <FormInputDate name="date" label="Date" />
         <FormInputRadio name="gender" label="Gender" options={gender} />
+        <FormInputSwitch name="blackList" label="blackList" />
         <FormButton>Dodaj użytkownika</FormButton>
       </FormWrapper>
     </>
