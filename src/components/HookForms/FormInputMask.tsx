@@ -20,8 +20,6 @@ const FormInputMask: FC<FormInputProps> = ({
     formState: { errors },
   } = useFormContext();
 
-  console.log({ ...otherProps });
-
   return (
     <Grid item xs={12} {...props}>
       <Controller

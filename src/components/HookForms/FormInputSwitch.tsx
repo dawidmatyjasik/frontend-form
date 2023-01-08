@@ -18,7 +18,7 @@ const FormInputSwitch: FC<FormInputProps> = ({ name, props, label }) => {
         control={control}
         name={name}
         render={({ field: { onChange, ...field } }) => (
-          <RadioGroup onChange={(e) => onChange(+e.target.value)} {...field}>
+          <RadioGroup {...field}>
             <FormControlLabel
               control={
                 <Switch
