@@ -8,6 +8,7 @@ import { FormButton } from "../../components/HookForms/FormButton";
 import FormInputDate from "../../components/HookForms/FormInputDate";
 import FormInputRadio from "../../components/HookForms/FormInputRadio";
 import FormInputSwitch from "../../components/HookForms/FormInputSwitch";
+import FormInputSelect from "../../components/HookForms/FormInputSelect";
 
 const loginSchema = object({
   // fullName: string(),
@@ -17,7 +18,8 @@ const loginSchema = object({
   // confirmPassword: string().min(1, "err"),
   // date: date(),
   // gender: number().nullable(),
-  blackList: boolean(),
+  // blackList: boolean(),
+  select: number().positive("Nothing selected"),
 });
 // .refine((data) => data.password === data.confirmPassword, {
 //   path: ["passwordConfirm"],
@@ -25,6 +27,8 @@ const loginSchema = object({
 // });
 
 const gender = ["Mężczyzna", "Kobieta"];
+
+const select = ["Projekt pierwszy", "Projekt drugi", "Projekt trzeci"];
 
 type ILogin = TypeOf<typeof loginSchema>;
 
@@ -37,7 +41,8 @@ export const TestPage: FC = () => {
     // confirmPassword: "",
     // date: new Date(),
     // gender: 1,
-    blackList: false,
+    // blackList: false,
+    select: 0,
   };
   const methods = useForm<ILogin>({
     resolver: zodResolver(loginSchema),
@@ -66,7 +71,8 @@ export const TestPage: FC = () => {
         />
         <FormInputDate name="date" label="Date" />
         <FormInputRadio name="gender" label="Gender" options={gender} />
-        <FormInputSwitch name="blackList" label="blackList" />
+        <FormInputSwitch name="blackList" label="Black list" />
+        <FormInputSelect name="select" label="Select" options={select} />
         <FormButton>Dodaj użytkownika</FormButton>
       </FormWrapper>
     </>
