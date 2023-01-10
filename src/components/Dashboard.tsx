@@ -7,7 +7,6 @@ import { HomePage } from "../pages/HomePage";
 import { PageWrapper } from "./Content/PageWrapper";
 import { PersonalPage } from "../pages/PersonalPage";
 import { ContentWrapper } from "./Content/ContentWrapper";
-import { TestPage } from "../pages/TestPage";
 
 export const Dashboard = () => {
   const [open, setOpen] = useState<boolean>(true);
@@ -23,7 +22,6 @@ export const Dashboard = () => {
         <ContentWrapper>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/test" element={<TestPage />} />
             <Route path="/personal" element={<PersonalPage />} />
           </Routes>
         </ContentWrapper>
