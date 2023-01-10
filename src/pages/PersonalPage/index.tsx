@@ -10,6 +10,7 @@ import { defaultValues } from "../../../../common/personal/init";
 import { personalSchema } from "../../../../common/personal/personalSchema";
 import UserActions from "../../components/Form/UserAction";
 import { FormButton } from "../../components/Form/FormButton";
+import { personalEnum } from "../../../../common/enum";
 
 export const PersonalPage: FC = () => {
   const methods = useForm<ILogin>({

@@ -17,26 +17,23 @@ const FormInputSwitch: FC<FormInputProps> = ({ name, props, label }) => {
       <Controller
         control={control}
         name={name}
-        render={({ field: { onChange, value, ...field } }) => {
-          console.log(value);
-          return (
-            <RadioGroup {...field}>
-              <FormControlLabel
-                control={
-                  <Switch
-                    onChange={(e) => {
-                      const value = e.target.checked ? 1 : 0;
-                      onChange(value);
-                    }}
-                    checked={value}
-                    {...field}
-                  />
-                }
-                label={label}
-              />
-            </RadioGroup>
-          );
-        }}
+        render={({ field: { onChange, value, ...field } }) => (
+          <RadioGroup {...field}>
+            <FormControlLabel
+              control={
+                <Switch
+                  onChange={(e) => {
+                    const value = e.target.checked ? 1 : 0;
+                    onChange(value);
+                  }}
+                  checked={!!value}
+                  {...field}
+                />
+              }
+              label={label}
+            />
+          </RadioGroup>
+        )}
       />
     </Grid>
   );
