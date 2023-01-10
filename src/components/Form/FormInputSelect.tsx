@@ -37,7 +37,7 @@ const FormInputSelect: FC<FormInputProps> = ({
               errors[name] ? (errors[name]?.message as unknown as string) : ""
             }
           >
-            {options.map((option, index) => (
+            {options?.map((option, index) => (
               <MenuItem key={index} value={index + 1}>
                 {option}
               </MenuItem>
