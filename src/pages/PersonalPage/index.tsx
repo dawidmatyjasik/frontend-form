@@ -9,6 +9,7 @@ import {
 import { defaultValues } from "../../../../common/personal/init";
 import { personalSchema } from "../../../../common/personal/personalSchema";
 import UserActions from "../../components/Form/UserAction";
+import { FormButton } from "../../components/Form/FormButton";
 
 export const PersonalPage: FC = () => {
   const methods = useForm<ILogin>({
@@ -25,6 +26,7 @@ export const PersonalPage: FC = () => {
         {personalSchema.map((action, index) => {
           return <UserActions action={action} key={index} />;
         })}
+        <FormButton>Zapisz</FormButton>
       </FormWrapper>
     </>
   );
