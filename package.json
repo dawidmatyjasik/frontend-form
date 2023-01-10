@@ -17,6 +17,7 @@
     "@mui/x-date-pickers": "^5.0.13",
     "comigo-tech-react-input-mask": "^3.0.0-alpha.3",
     "dayjs": "^1.11.7",
+    "firebase": "^9.15.0",
     "formik": "^2.2.9",
     "imask": "^6.4.3",
     "moment": "^2.29.4",

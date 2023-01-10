@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { ComponentEnum } from "../../../../common/enum";
 import FormInput from "../../components/Form/FormInput";
 import FormInputDate from "../../components/Form/FormInputDate";
@@ -8,24 +8,32 @@ import FormInputSelect from "../../components/Form/FormInputSelect";
 import FormInputMask from "../../components/Form/FormInputMask";
 
 const UserActions = ({ action }: any) => {
+  const { component, ...rest } = action;
   let props: any = {};
 
-  switch (action.component) {
-    case ComponentEnum.FormInput:
-      return <FormInput {...action} {...props} />;
-    case ComponentEnum.FormDatePicker:
-      return <FormInputDate {...action} {...props} />;
-    case ComponentEnum.FormRadio:
-      return <FormInputRadio {...action} {...props} />;
-    case ComponentEnum.FormSelect:
-      return <FormInputSelect {...action} {...props} />;
-    case ComponentEnum.FormSwitch:
-      return <FormInputSwitch {...action} {...props} />;
-    case ComponentEnum.FormInputMask:
-      return <FormInputMask {...action} {...props} />;
-    default:
+  switch (component) {
+    case ComponentEnum.FormInput: {
+      return <FormInput {...rest} {...props} />;
+    }
+    case ComponentEnum.FormDatePicker: {
+      return <FormInputDate {...rest} {...props} />;
+    }
+    case ComponentEnum.FormRadio: {
+      return <FormInputRadio {...rest} {...props} />;
+    }
+    case ComponentEnum.FormSelect: {
+      return <FormInputSelect {...rest} {...props} />;
+    }
+    case ComponentEnum.FormSwitch: {
+      return <FormInputSwitch {...rest} {...props} />;
+    }
+    case ComponentEnum.FormInputMask: {
+      return <FormInputMask {...rest} {...props} />;
+    }
+    default: {
       console.error("UserAction | component not found", { action });
       return null;
+    }
   }
 };
 
