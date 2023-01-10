@@ -1,8 +1,3 @@
-export const assignedProject = {
-    project1: 'Projekt 1',
-    project2: 'Projekt 2',
-    project3: 'Projekt 3',
-    project4: 'Projekt 4',
-}
+export const assignedProject = ["Projekt 1", "Projekt 2", "Projekt 3"];
 
-export const gender = ['Mężczyzna', 'Kobieta']
+export const gender = ["Mężczyzna", "Kobieta"];

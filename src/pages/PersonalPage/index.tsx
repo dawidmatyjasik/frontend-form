@@ -1,19 +1,31 @@
-import { Grid } from "@mui/material";
-import { FormButton } from "../../components/Forms/FormButton";
-import { personalValidator } from "../../../../common/personal/validator";
-import { personalInit } from "../../../../common/personal/init";
-import { FormWrapper } from "../../components/Content/FormWrapper";
-import { Header } from "../../components/Content/Header";
-import { Content } from "./Content";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FC } from "react";
+import FormWrapper from "../../components/Form/FormWrapper";
+import {
+  personalValidator,
+  ILogin,
+} from "../../../../common/personal/validator";
+import { defaultValues } from "../../../../common/personal/init";
+import { personalSchema } from "../../../../common/personal/personalSchema";
+import UserActions from "../../components/Form/UserAction";
 
-export const PersonalPage = () => {
+export const PersonalPage: FC = () => {
+  const methods = useForm<ILogin>({
+    resolver: zodResolver(personalValidator),
+    defaultValues,
+  });
+
+  const onSubmitHandler: SubmitHandler<ILogin> = (values: ILogin) => {
+    console.log(values);
+  };
   return (
-    <FormWrapper init={personalInit} validator={personalValidator}>
-      <Header title="Dane osobowe" />
-      <Content />
-      <Grid item xs={12} sm={4} my={2}>
-        <FormButton>Dodaj użytkownika</FormButton>
-      </Grid>
-    </FormWrapper>
+    <>
+      <FormWrapper methods={methods} onSubmitHandler={onSubmitHandler}>
+        {personalSchema.map((action, index) => {
+          return <UserActions action={action} key={index} />;
+        })}
+      </FormWrapper>
+    </>
   );
 };
