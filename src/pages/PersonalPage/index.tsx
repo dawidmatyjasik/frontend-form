@@ -1,53 +1,26 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { date, object, string, TypeOf, number, boolean } from "zod";
 import { FC } from "react";
-import FormInput from "../../components/HookForms/FormInput";
-import FormWrapper from "../../components/HookForms/FormWrapper";
-import { FormButton } from "../../components/HookForms/FormButton";
-import FormInputDate from "../../components/HookForms/FormInputDate";
-import FormInputRadio from "../../components/HookForms/FormInputRadio";
-import FormInputSwitch from "../../components/HookForms/FormInputSwitch";
-import FormInputSelect from "../../components/HookForms/FormInputSelect";
-import FormInputMask from "../../components/HookForms/FormInputMask";
-
-const loginSchema = object({
-  fullName: string(),
-  email: string().email("err"),
-  age: string(),
-  password: string().min(1, "err"),
-  confirmPassword: string().min(1, "err"),
-  date: date(),
-  gender: number().nullable(),
-  blackList: boolean(),
-  select: number().positive("Nothing selected"),
-  mask: string(),
-}).refine((data) => data.password === data.confirmPassword, {
-  path: ["passwordConfirm"],
-  message: "Passwords do not match",
-});
-
-const gender = ["Mężczyzna", "Kobieta"];
-
-const select = ["Projekt pierwszy", "Projekt drugi", "Projekt trzeci"];
-
-type ILogin = TypeOf<typeof loginSchema>;
+import FormInput from "../../components/Form/FormInput";
+import FormWrapper from "../../components/Form/FormWrapper";
+import { FormButton } from "../../components/Form/FormButton";
+import FormInputDate from "../../components/Form/FormInputDate";
+import FormInputRadio from "../../components/Form/FormInputRadio";
+import FormInputSwitch from "../../components/Form/FormInputSwitch";
+import FormInputSelect from "../../components/Form/FormInputSelect";
+import FormInputMask from "../../components/Form/FormInputMask";
+import { gender, assignedProject } from "../../data/data";
+import {
+  personalValidator,
+  ILogin,
+} from "../../../../common/personal/validator";
+import { defaultValues } from "../../../../common/personal/init";
+import { personalSchema } from "../../../../common/personal/personalSchema";
+import { personalEnum } from "../../../../common/enum";
 
 export const PersonalPage: FC = () => {
-  const defaultValues: ILogin = {
-    fullName: "",
-    email: "",
-    age: "",
-    password: "",
-    confirmPassword: "",
-    date: new Date(),
-    gender: 1,
-    blackList: false,
-    select: 1,
-    mask: "",
-  };
   const methods = useForm<ILogin>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(personalValidator),
     defaultValues,
   });
 
@@ -74,7 +47,11 @@ export const PersonalPage: FC = () => {
         <FormInputDate name="date" label="Date" />
         <FormInputRadio name="gender" label="Gender" options={gender} />
         <FormInputSwitch name="blackList" label="Black list" />
-        <FormInputSelect name="select" label="Select" options={select} />
+        <FormInputSelect
+          name="select"
+          label="Select"
+          options={assignedProject}
+        />
         <FormInputMask name="mask" label="Mask" mask="999 999" />
         <FormButton>Dodaj użytkownika</FormButton>
       </FormWrapper>
