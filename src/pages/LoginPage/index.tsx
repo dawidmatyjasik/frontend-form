@@ -1,35 +1,12 @@
 import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
 import { FormProvider, useForm, SubmitHandler } from "react-hook-form";
 import { loginEnum } from "../../../../common/enum";
 import FormInput from "../../components/Form/FormInput";
-import { Grid } from "@mui/material";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import { useNavigate } from "react-router-dom";
-
-const Copyright = (props: any) => {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Wszelkie prawa zastrzeżone © "}
-      <Link color="inherit" href="">
-        Łętowski Consulting
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-};
 
 interface ILogin {
   email: string;
@@ -61,40 +38,39 @@ export const LoginPage = () => {
   };
 
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(handleSubmit)}>
-        <Container component="main" maxWidth="xs">
-          <Box
-            sx={{
-              marginTop: 20,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Typography component="h1" variant="h5">
-              Logowanie
-            </Typography>
-            <Grid container spacing={2}>
-              <FormInput name="email" type="email" label="Adres email" />
-              <FormInput name="password" type="password" label="Hasło" />
-            </Grid>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Zapamiętaj mnie"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Zaloguj się
-            </Button>
-          </Box>
-          <Copyright sx={{ mt: 8, mb: 4 }} />
-        </Container>
-      </form>
-    </FormProvider>
+    <div className="flex flex-col h-full w-full p-2">
+      <FormProvider {...methods}>
+        <form
+          onSubmit={methods.handleSubmit(handleSubmit)}
+          className="h-full w-full"
+        >
+          <main className="h-full max-w-md mx-auto px-4">
+            <div className="flex flex-col justify-center items-center h-full space-y-6">
+              <h1 className="text-4xl">Logowanie</h1>
+              <div className="w-full space-y-4">
+                <FormInput name="email" type="email" label="Adres email" />
+                <FormInput name="password" type="password" label="Hasło" />
+              </div>
+
+              <Button
+                type="submit"
+                sx={{
+                  width: "50%",
+                  minWidth: "160px",
+                }}
+                variant="contained"
+              >
+                Zaloguj się
+              </Button>
+            </div>
+          </main>
+        </form>
+        <footer>
+          <h3 className="text-[rgba(0,0,0,.5)] text-sm text-center">
+            Wszelkie prawa zastrzeżone ©
+          </h3>
+        </footer>
+      </FormProvider>
+    </div>
   );
 };
