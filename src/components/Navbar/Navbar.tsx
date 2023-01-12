@@ -7,6 +7,9 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { drawerWidth } from "../utils/utils";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase/config";
+import { useNavigate } from "react-router-dom";
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
@@ -31,6 +34,12 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 export const Navbar = ({ toggleDrawer, open }: any) => {
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    await signOut(auth);
+    navigate("/login");
+  };
+
   return (
     <AppBar position="absolute" open={open}>
       <Toolbar
@@ -59,7 +68,7 @@ export const Navbar = ({ toggleDrawer, open }: any) => {
         >
           Dashboard
         </Typography>
-        <IconButton color="inherit">
+        <IconButton color="inherit" onClick={handleLogout}>
           <Badge badgeContent={4} color="secondary">
             <NotificationsIcon />
           </Badge>
