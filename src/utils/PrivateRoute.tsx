@@ -1,4 +1,5 @@
 import { Outlet, Navigate } from "react-router-dom";
+import LoadingScreen from "../components/Loading";
 import { useAuth } from "../hooks/useAuth";
 
 const PrivateRoutes = () => {
@@ -6,7 +7,7 @@ const PrivateRoutes = () => {
   if (!loading) {
     return !!currentUser ? <Outlet /> : <Navigate to="/login" />;
   }
-  return <h1>Loading...</h1>;
+  return <LoadingScreen />;
 };
 
 export default PrivateRoutes;

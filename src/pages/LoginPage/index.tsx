@@ -6,7 +6,9 @@ import { loginEnum } from "../../../../common/enum";
 import FormInput from "../../components/Form/FormInput";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/config";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
+import LoadingScreen from "../../components/Loading";
 
 interface ILogin {
   email: string;
@@ -20,6 +22,7 @@ const defaultValues = {
 
 export const LoginPage = () => {
   const navigate = useNavigate();
+  const { currentUser, loading } = useAuth();
   const methods = useForm<ILogin>({
     defaultValues,
   });
@@ -36,6 +39,14 @@ export const LoginPage = () => {
       console.log(error.message);
     }
   };
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
+
+  if (!loading && !!currentUser) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="flex flex-col h-full w-full p-2">
