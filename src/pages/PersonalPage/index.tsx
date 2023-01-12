@@ -4,7 +4,7 @@ import { FC } from "react";
 import FormWrapper from "../../components/Form/FormWrapper";
 import {
   personalValidator,
-  ILogin,
+  IPersonal,
 } from "../../../../common/personal/validator";
 import { defaultValues } from "../../../../common/personal/init";
 import { personalSchema } from "../../../../common/personal/personalSchema";
@@ -13,12 +13,12 @@ import { FormButton } from "../../components/Form/FormButton";
 import { personalEnum } from "../../../../common/enum";
 
 export const PersonalPage: FC = () => {
-  const methods = useForm<ILogin>({
+  const methods = useForm<IPersonal>({
     resolver: zodResolver(personalValidator),
     defaultValues,
   });
 
-  const onSubmitHandler: SubmitHandler<ILogin> = (values: ILogin) => {
+  const onSubmitHandler: SubmitHandler<IPersonal> = (values: IPersonal) => {
     console.log(values);
   };
   return (

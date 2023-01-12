@@ -4,7 +4,7 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import { Dashboard } from "../components/Dashboard";
-import PrivateRoutes from "../hooks/PrivateRoute";
+import PrivateRoutes from "../utils/PrivateRoute";
 import { HomePage } from "./HomePage";
 import { LoginPage } from "./LoginPage";
 import { PersonalPage } from "./PersonalPage";
