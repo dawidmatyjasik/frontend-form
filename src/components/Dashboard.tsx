@@ -2,14 +2,12 @@ import { useState } from "react";
 import Box from "@mui/material/Box";
 import { Navbar } from "./Navbar/Navbar";
 import { Sidebar } from "./Sidebar/Sidebar";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { HomePage } from "../pages/HomePage";
+import { Outlet } from "react-router-dom";
 import { PageWrapper } from "./Content/PageWrapper";
-import { PersonalPage } from "../pages/PersonalPage";
 import { ContentWrapper } from "./Content/ContentWrapper";
 
 export const Dashboard = () => {
-  const [open, setOpen] = useState<boolean>(true);
+  const [open, setOpen] = useState<boolean>(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -20,10 +18,7 @@ export const Dashboard = () => {
       <Sidebar toggleDrawer={toggleDrawer} open={open} />
       <PageWrapper>
         <ContentWrapper>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/personal" element={<PersonalPage />} />
-          </Routes>
+          <Outlet />
         </ContentWrapper>
       </PageWrapper>
     </Box>

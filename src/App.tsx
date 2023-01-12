@@ -1,19 +1,17 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { Dashboard } from "./components/Dashboard";
-import { BrowserRouter as Router } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./pages";
 
 const mdTheme = createTheme();
 
-function App() {
+const App = () => {
   return (
     <ThemeProvider theme={mdTheme}>
       <CssBaseline />
-      <Router>
-        <Dashboard />
-      </Router>
+      <RouterProvider router={router} />
     </ThemeProvider>
   );
-}
+};
 
 export default App;
