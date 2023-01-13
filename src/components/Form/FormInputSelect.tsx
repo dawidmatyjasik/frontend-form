@@ -5,6 +5,7 @@ import { Grid, TextField, TextFieldProps, MenuItem } from "@mui/material";
 type FormInputProps = {
   name: string;
   options: string[];
+  yesNo?: boolean;
   props?: {};
 } & TextFieldProps;
 
@@ -13,6 +14,7 @@ const FormInputSelect: FC<FormInputProps> = ({
   props,
   label,
   options,
+  yesNo,
 }) => {
   const {
     control,
@@ -23,7 +25,6 @@ const FormInputSelect: FC<FormInputProps> = ({
       <Controller
         control={control}
         name={name}
-        defaultValue=""
         render={({ field: { onChange, ...field } }) => (
           <TextField
             {...field}
@@ -37,11 +38,13 @@ const FormInputSelect: FC<FormInputProps> = ({
               errors[name] ? (errors[name]?.message as unknown as string) : ""
             }
           >
-            {options?.map((option, index) => (
-              <MenuItem key={index} value={index + 1}>
-                {option}
-              </MenuItem>
-            ))}
+            {options?.map((option, index) => {
+              return (
+                <MenuItem key={index} value={yesNo ? index : index + 1}>
+                  {option}
+                </MenuItem>
+              );
+            })}
           </TextField>
         )}
       />

@@ -1,4 +1,3 @@
-import React, { useCallback } from "react";
 import { ComponentEnum } from "../../../../common/enum";
 import FormInput from "../../components/Form/FormInput";
 import FormInputDate from "../../components/Form/FormInputDate";
@@ -7,9 +6,13 @@ import FormInputSwitch from "../../components/Form/FormInputSwitch";
 import FormInputSelect from "../../components/Form/FormInputSelect";
 import FormInputMask from "../../components/Form/FormInputMask";
 
-const UserActions = ({ action }: any) => {
+const UserActions = ({ action, referer }: any) => {
   const { component, ...rest } = action;
   let props: any = {};
+
+  if (!!referer) {
+    return null;
+  }
 
   switch (component) {
     case ComponentEnum.FormInput: {

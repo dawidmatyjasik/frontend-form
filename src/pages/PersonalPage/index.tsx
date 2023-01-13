@@ -11,6 +11,9 @@ import { personalSchema } from "../../../../common/personal/personalSchema";
 import UserActions from "../../components/Form/UserAction";
 import { FormButton } from "../../components/Form/FormButton";
 import { personalEnum } from "../../../../common/enum";
+import { apiRequest } from "../../hooks/useAxios";
+import { ROUTES } from "../../../../common/routes";
+import { Button } from "@mui/material";
 
 export const PersonalPage: FC = () => {
   const methods = useForm<IPersonal>({
@@ -18,16 +21,34 @@ export const PersonalPage: FC = () => {
     defaultValues,
   });
 
-  const onSubmitHandler: SubmitHandler<IPersonal> = (values: IPersonal) => {
-    console.log(values);
+  const onSubmitHandler: SubmitHandler<IPersonal> = async (
+    values: IPersonal
+  ) => {
+    values["phone_number"] = "000000000"; // TODO: format phone_number
+    await apiRequest("post", ROUTES.PERSONAL.POST, values);
+  };
+
+  const handleGet = async () => {
+    const { data } = await apiRequest("get", ROUTES.PERSONAL.GET_ALL);
+    console.log(data);
   };
   return (
     <>
       <FormWrapper methods={methods} onSubmitHandler={onSubmitHandler}>
-        {personalSchema.map((action, index) => {
-          return <UserActions action={action} key={index} />;
+        {personalSchema.map(({ referer, refs, ...rest }, index) => {
+          return (
+            <UserActions
+              action={rest}
+              referer={referer && referer(methods, refs)}
+              methods={methods}
+              key={index}
+            />
+          );
         })}
-        <FormButton>Zapisz</FormButton>
+        <FormButton>Wyślij</FormButton>
+        <Button onClick={handleGet}>Pobierz</Button>
+        <Button>Pobierz pojedyncze</Button>
+        <Button>Usuń</Button>
       </FormWrapper>
     </>
   );

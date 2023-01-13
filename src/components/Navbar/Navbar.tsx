@@ -10,6 +10,7 @@ import { drawerWidth } from "../utils/utils";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import { useNavigate } from "react-router-dom";
+import { Avatar, Button } from "@mui/material";
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
@@ -68,11 +69,15 @@ export const Navbar = ({ toggleDrawer, open }: any) => {
         >
           Dashboard
         </Typography>
-        <IconButton color="inherit" onClick={handleLogout}>
-          <Badge badgeContent={4} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
+        <Button
+          onClick={handleLogout}
+          sx={{
+            color: "white",
+            fontWeight: "500",
+          }}
+        >
+          Wyloguj
+        </Button>
       </Toolbar>
     </AppBar>
   );
