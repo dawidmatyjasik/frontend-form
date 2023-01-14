@@ -1,5 +1,5 @@
 import { Box, Button, ListItem } from "@mui/material";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ReactNode } from "react";
 
 interface IItem {
@@ -11,6 +11,7 @@ interface IItem {
 export const Item = (props: IItem) => {
   const { href, icon, title, ...others } = props;
   const location = useLocation();
+  const navigate = useNavigate();
   const active: any = href ? location.pathname === href : false;
 
   return (
@@ -25,7 +26,9 @@ export const Item = (props: IItem) => {
       {...others}
     >
       <Button
+        component="a"
         startIcon={icon}
+        onClick={() => navigate(href)}
         disableRipple
         sx={{
           backgroundColor: active && "rgba(255,255,255, 0.08)",
@@ -45,10 +48,8 @@ export const Item = (props: IItem) => {
           },
         }}
       >
-        <Link to={href}>
-          {" "}
-          <Box sx={{ flexGrow: 1 }}>{title}</Box>
-        </Link>
+        {" "}
+        <Box sx={{ flexGrow: 1 }}>{title}</Box>
       </Button>
     </ListItem>
   );
