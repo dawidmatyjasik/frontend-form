@@ -8,9 +8,15 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 type FormInputProps = {
   name: string;
   props?: {};
+  dateProps?: {};
 } & TextFieldProps;
 
-const FormInputDate: FC<FormInputProps> = ({ name, props, ...otherProps }) => {
+const FormInputDate: FC<FormInputProps> = ({
+  name,
+  props,
+  dateProps,
+  ...otherProps
+}) => {
   const {
     control,
     formState: { errors },
@@ -29,6 +35,7 @@ const FormInputDate: FC<FormInputProps> = ({ name, props, ...otherProps }) => {
                 field.onChange(date.toDate());
               }}
               value={field.value}
+              {...dateProps}
               renderInput={(params) => (
                 <TextField
                   {...field}
