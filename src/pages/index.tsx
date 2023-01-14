@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import { Layout } from "../components/Layout/Layout";
 import PrivateRoutes from "../utils/PrivateRoute";
+import ErrorPage from "./ErrorPage";
 import { HomePage } from "./HomePage";
 import { LoginPage } from "./LoginPage";
 import { PersonalPage } from "./PersonalPage";
@@ -24,7 +25,7 @@ export const router = createBrowserRouter(
         </Route>
       </Route>
       <Route path="/login" element={<LoginPage />} />
-      <Route path="*" element={null} />
+      <Route path="*" element={<ErrorPage />} />
     </Route>
   )
 );
