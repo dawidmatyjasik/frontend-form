@@ -28,12 +28,12 @@ export const mainListItems = (
         <ListItemText primary="Dane osobowe" />
       </ListItemButton>
     </Link>
-    <Link to="/project">
+    <Link to="/project-paricipiant">
       <ListItemButton>
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
-        <ListItemText primary="Dane projektowe" />
+        <ListItemText primary="Uczestnik w projekcie" />
       </ListItemButton>
     </Link>
     <Link to="/controls">

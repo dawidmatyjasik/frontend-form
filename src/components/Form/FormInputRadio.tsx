@@ -11,6 +11,8 @@ type FormInputProps = {
   name: string;
   options: string[];
   props?: {};
+  radioProps: {};
+  yesNo: boolean;
 } & TextFieldProps;
 
 const FormInputRadio: FC<FormInputProps> = ({
@@ -18,6 +20,8 @@ const FormInputRadio: FC<FormInputProps> = ({
   props,
   label,
   options,
+  radioProps,
+  yesNo,
 }) => {
   const {
     control,
@@ -32,11 +36,15 @@ const FormInputRadio: FC<FormInputProps> = ({
           control={control}
           name={name}
           render={({ field: { onChange, ...field } }) => (
-            <RadioGroup onChange={(e) => onChange(+e.target.value)} {...field}>
+            <RadioGroup
+              onChange={(e) => onChange(+e.target.value)}
+              {...field}
+              {...radioProps}
+            >
               {options.map((option: string, index: number) => (
                 <FormControlLabel
                   key={index}
-                  value={index + 1}
+                  value={yesNo ? index : index + 1}
                   control={<Radio />}
                   label={option}
                 />

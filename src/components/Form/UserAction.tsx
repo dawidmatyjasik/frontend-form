@@ -5,6 +5,8 @@ import FormInputRadio from "../../components/Form/FormInputRadio";
 import FormInputSwitch from "../../components/Form/FormInputSwitch";
 import FormInputSelect from "../../components/Form/FormInputSelect";
 import FormInputMask from "../../components/Form/FormInputMask";
+import FormHeader from "./FormHeader";
+import FormSubHeader from "./FormSubHeader";
 
 const UserActions = ({ action, referer }: any) => {
   const { component, ...rest } = action;
@@ -32,6 +34,12 @@ const UserActions = ({ action, referer }: any) => {
     }
     case ComponentEnum.FormInputMask: {
       return <FormInputMask {...rest} {...props} />;
+    }
+    case ComponentEnum.FormHeader: {
+      return <FormHeader {...rest} {...props} />;
+    }
+    case ComponentEnum.FormSubHeader: {
+      return <FormSubHeader {...rest} {...props} />;
     }
     default: {
       console.error("UserAction | component not found", { action });
