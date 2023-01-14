@@ -1,4 +1,7 @@
 import { Box, MenuItem, MenuList, Popover, Typography } from "@mui/material";
+import { signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../../firebase/config";
 
 interface IPopover {
   anchorEl: any;
@@ -8,6 +11,11 @@ interface IPopover {
 
 export const AccountPopover = (props: IPopover) => {
   const { anchorEl, onClose, open, ...other } = props;
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    await signOut(auth);
+    navigate("/login");
+  };
 
   return (
     <Popover
@@ -47,7 +55,7 @@ export const AccountPopover = (props: IPopover) => {
           },
         }}
       >
-        <MenuItem>Sign out</MenuItem>
+        <MenuItem onClick={handleLogout}>Sign out</MenuItem>
       </MenuList>
     </Popover>
   );
