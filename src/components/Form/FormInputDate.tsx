@@ -4,6 +4,7 @@ import { Grid, TextField, TextFieldProps } from "@mui/material";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { parseErrors } from "../../utils/parseErrors";
 
 type FormInputProps = {
   name: string;
@@ -43,11 +44,7 @@ const FormInputDate: FC<FormInputProps> = ({
                   {...otherProps}
                   error={!!errors[name]}
                   fullWidth={true}
-                  helperText={
-                    errors[name]
-                      ? (errors[name]?.message as unknown as string)
-                      : ""
-                  }
+                  helperText={parseErrors({ errors, name })}
                 />
               )}
             />

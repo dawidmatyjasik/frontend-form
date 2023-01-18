@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import { ajvResolver } from "@hookform/resolvers/ajv";
 import { FC } from "react";
 import FormWrapper from "../../components/Form/FormWrapper";
 import { validator } from "../../../../common/personal/validator";
@@ -10,10 +9,12 @@ import { FormButton } from "../../components/Form/FormButton";
 import { apiRequest } from "../../hooks/useAxios";
 import { ROUTES } from "../../../../common/routes";
 import { Button } from "@mui/material";
+import { useValidator } from "../../hooks/useValidator";
 
 export const PersonalPage: FC = () => {
+  const resolver = useValidator({ validator });
   const methods = useForm({
-    resolver: ajvResolver(validator),
+    ...resolver,
     defaultValues,
   });
 
