@@ -1,28 +1,20 @@
-import { useForm, SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import { FC } from "react";
 import FormWrapper from "../../components/Form/FormWrapper";
-import {
-  validator,
-  IValidator,
-} from "../../../../common/projectParticipiant/validator";
+import { validator } from "../../../../common/projectParticipiant/validator";
 import { defaultValues } from "../../../../common/projectParticipiant/init";
 import { schema } from "../../../../common/projectParticipiant/schema";
 import UserActions from "../../components/Form/UserAction";
 import { FormButton } from "../../components/Form/FormButton";
-import { personalEnum } from "../../../../common/enum";
-import { apiRequest } from "../../hooks/useAxios";
-import { ROUTES } from "../../../../common/routes";
+import { ajvResolver } from "@hookform/resolvers/ajv";
 
 export const ProjectParticipiantPage: FC = () => {
-  const methods = useForm<IValidator>({
-    resolver: zodResolver(validator),
+  const methods = useForm({
+    resolver: ajvResolver(validator),
     defaultValues,
   });
 
-  const onSubmitHandler: SubmitHandler<IValidator> = async (
-    values: IValidator
-  ) => {
+  const onSubmitHandler = async (values) => {
     console.log(values);
   };
 

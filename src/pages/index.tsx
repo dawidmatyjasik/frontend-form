@@ -22,8 +22,8 @@ export const router = createBrowserRouter(
             path="/dane-uczestnika-w-projekcie"
             element={<ProjectParticipiantPage />}
           />
-          <Route path="*" element={<ErrorPage />} />
         </Route>
+        <Route path="*" element={<ErrorPage />} />
       </Route>
       <Route path="/login" element={<LoginPage />} />
     </Route>
