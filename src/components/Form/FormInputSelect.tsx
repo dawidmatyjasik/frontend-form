@@ -5,7 +5,7 @@ import { parseErrors } from "../../utils/parseErrors";
 
 type FormInputProps = {
   name: string;
-  options: string[];
+  options: {};
   yesNo?: boolean;
   props?: {};
 } & TextFieldProps;
@@ -15,7 +15,6 @@ const FormInputSelect: FC<FormInputProps> = ({
   props,
   label,
   options,
-  yesNo,
 }) => {
   const {
     control,
@@ -37,9 +36,9 @@ const FormInputSelect: FC<FormInputProps> = ({
             fullWidth={true}
             helperText={parseErrors({ errors, name })}
           >
-            {options?.map((option, index) => {
+            {Object.values(options).map((option: any, index) => {
               return (
-                <MenuItem key={index} value={yesNo ? index : index + 1}>
+                <MenuItem key={index} value={+Object.keys(options)[index]}>
                   {option}
                 </MenuItem>
               );

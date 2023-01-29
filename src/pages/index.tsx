@@ -10,6 +10,7 @@ import { HomePage } from "./HomePage";
 import { LoginPage } from "./LoginPage";
 import { PersonalPage } from "./PersonalPage";
 import { ProjectParticipiantPage } from "./ProjectParticipiantPage";
+import TestPage from "./TestPage";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +23,7 @@ export const router = createBrowserRouter(
             path="/dane-uczestnika-w-projekcie"
             element={<ProjectParticipiantPage />}
           />
+          <Route path="*" element={<TestPage />} />
         </Route>
         <Route path="*" element={<ErrorPage />} />
       </Route>
