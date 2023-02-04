@@ -1,50 +1,100 @@
-import { useForm } from "react-hook-form";
-import { FC } from "react";
-import FormWrapper from "../../components/Form/FormWrapper";
-import { validator } from "../../../../common/personal/validator";
-import { defaultValues } from "../../../../common/personal/init";
-import { schema } from "../../../../common/personal/schema";
-import UserActions from "../../components/Form/UserAction";
-import { FormButton } from "../../components/Form/FormButton";
-import { apiRequest } from "../../hooks/useAxios";
+import { useEffect, useState } from "react";
+import {
+  DataGrid,
+  GridRowsProp,
+  GridValueFormatterParams,
+} from "@mui/x-data-grid";
+import Grid from "@mui/material/Grid";
 import { ROUTES } from "../../../../common/routes";
-import { Button } from "@mui/material";
-import { useValidator } from "../../hooks/useValidator";
+import { apiRequest } from "../../hooks/useAxios";
+import { ComponentEnum, personalEnum } from "../../../../common/enum";
+import { schema } from "../../../../common/personal/schema";
+import moment from "moment";
+import { choice } from "../../../../common/mocks";
+import { Toolbar } from "../../components/Table/Toolbar";
+import Modal from "../../components/Table/Modal";
+import Wrapper from "../../components/Table/Wrapper";
+import Actions from "../../components/Table/Actions";
+import { Content } from "./Content";
 
-export const PersonalPage: FC = () => {
-  const resolver = useValidator({ validator });
-  const methods = useForm({
-    ...resolver,
-    defaultValues,
+export const PersonalPage = () => {
+  const [data, setData] = useState<GridRowsProp>([]);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const handleGet = async () => {
+      const { data } = await apiRequest("get", ROUTES.PERSONAL.GET_ALL);
+      console.log(data);
+      setData(data);
+    };
+    handleGet();
+  }, []);
+
+  const actions = {
+    field: "actions",
+    headerName: "Operacje",
+    type: "actions",
+    renderCell: (params: any) => <Actions {...{ params }} />,
+  };
+
+  const filteredSchema = schema.filter((el) => !!el.name);
+
+  const cols: any = filteredSchema.map((col, i) => {
+    let props: any;
+    if (col.options) {
+      props = {
+        valueFormatter: (params: GridValueFormatterParams) =>
+          col.options[params.value],
+      };
+    }
+
+    if (col.component === ComponentEnum.FormSwitch) {
+      props = {
+        valueFormatter: (params: GridValueFormatterParams) =>
+          choice[params.value],
+      };
+    }
+
+    if (col.component === ComponentEnum.FormDatePicker) {
+      props = {
+        valueFormatter: (params: GridValueFormatterParams) =>
+          moment(params.value).format("DD/MM/YYYY"),
+      };
+    }
+
+    return {
+      key: i,
+      field: col.name,
+      headerName: col.label,
+      width: 150,
+      ...props,
+    };
   });
 
-  const onSubmitHandler = async (values) => {
-    values["phone_number"] = "000000000"; // TODO: format phone_number
-    await apiRequest("post", ROUTES.PERSONAL.POST, values);
-  };
+  const colsWithActions = cols.concat(actions);
 
-  const handleGet = async () => {
-    const { data } = await apiRequest("get", ROUTES.PERSONAL.GET_ALL);
-    console.log(data);
-  };
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
-    <>
-      <FormWrapper methods={methods} onSubmitHandler={onSubmitHandler}>
-        {schema.map(({ referer, refs, ...rest }, index) => {
-          return (
-            <UserActions
-              action={rest}
-              referer={referer && referer(methods, refs)}
-              methods={methods}
-              key={index}
-            />
-          );
-        })}
-        <FormButton>Wyślij</FormButton>
-        <Button onClick={handleGet}>Pobierz</Button>
-        <Button>Pobierz pojedyncze</Button>
-        <Button>Usuń</Button>
-      </FormWrapper>
-    </>
+    <Wrapper>
+      <Grid item xs={12} style={{ flexGrow: 1 }}>
+        <DataGrid
+          rows={data}
+          columns={colsWithActions}
+          getRowId={(row: any) => row._id}
+          components={{
+            Toolbar: Toolbar,
+          }}
+          componentsProps={{
+            toolbar: { handleOpen },
+          }}
+          localeText={{ toolbarDensity: "Gęstość" }}
+        />
+      </Grid>
+      <Modal open={open} handleClose={handleClose}>
+        <Content />
+      </Modal>
+    </Wrapper>
   );
 };
