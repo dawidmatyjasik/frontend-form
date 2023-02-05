@@ -35,6 +35,11 @@ export const PersonalPage = () => {
     <Wrapper>
       <Grid item xs={12} style={{ flexGrow: 1 }}>
         <DataGrid
+          initialState={{
+            pagination: {
+              pageSize: 15,
+            },
+          }}
           rows={data}
           columns={colsWithActions}
           getRowId={(row: any) => row._id}
@@ -43,8 +48,13 @@ export const PersonalPage = () => {
           }}
           componentsProps={{
             toolbar: { setOpen: setSendModal },
+            pagination: {
+              labelRowsPerPage: "Liczba rekordów",
+              rowsPerPageOptions: [10, 15, 20],
+            },
           }}
           localeText={{ toolbarDensity: "Gęstość" }}
+          rowsPerPageOptions={[10, 15, 20]}
         />
       </Grid>
       <Modal open={sendModal} setOpen={setSendModal}>

@@ -1,7 +1,7 @@
 import { GridValueFormatterParams } from "@mui/x-data-grid";
 import moment from "moment";
 import { ComponentEnum } from "../../../common/enum";
-import { choice } from "../../../common/mocks";
+import { choiceEnum } from "../../../common/mocks";
 
 const useTable = ({ schema, actions }) => {
   const filteredSchema = schema.filter((el) => !!el.name);
@@ -18,7 +18,7 @@ const useTable = ({ schema, actions }) => {
     if (col.component === ComponentEnum.FormSwitch) {
       props = {
         valueFormatter: (params: GridValueFormatterParams) =>
-          choice[params.value],
+          choiceEnum[params.value],
       };
     }
 
