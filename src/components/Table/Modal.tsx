@@ -1,10 +1,10 @@
 import { Box, Modal as ModalMUI, Typography } from "@mui/material";
 
-const Modal = ({ open, handleClose, children }) => {
+const Modal = ({ open, setOpen, children }) => {
   return (
     <ModalMUI
       open={open}
-      onClose={handleClose}
+      onClose={() => setOpen(false)}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >

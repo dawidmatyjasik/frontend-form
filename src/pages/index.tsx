@@ -23,7 +23,7 @@ export const router = createBrowserRouter(
             path="/dane-uczestnika-w-projekcie"
             element={<ProjectParticipiantPage />}
           />
-          <Route path="*" element={<TestPage />} />
+          {/* <Route path="*" element={<TestPage />} /> */}
         </Route>
         <Route path="*" element={<ErrorPage />} />
       </Route>

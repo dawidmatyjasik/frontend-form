@@ -2,17 +2,10 @@ import { GridValueFormatterParams } from "@mui/x-data-grid";
 import moment from "moment";
 import { ComponentEnum } from "../../../common/enum";
 import { choice } from "../../../common/mocks";
-import Actions from "../components/Table/Actions";
+import { tableActions } from "../utils/tableActions";
 
-const tableFormater = ({ schema }) => {
+const useTable = ({ schema, actions }) => {
   const filteredSchema = schema.filter((el) => !!el.name);
-
-  const actions = {
-    field: "actions",
-    headerName: "Operacje",
-    type: "actions",
-    renderCell: (params) => <Actions {...{ params }} />,
-  };
 
   const cols = filteredSchema.map((col, i) => {
     let props: any;
@@ -51,4 +44,4 @@ const tableFormater = ({ schema }) => {
   return { colsWithActions, cols };
 };
 
-export default tableFormater;
+export default useTable;

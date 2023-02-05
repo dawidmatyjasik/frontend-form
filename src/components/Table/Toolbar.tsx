@@ -6,18 +6,20 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import { Button } from "@mui/material";
 
-export const Toolbar = ({ handleOpen }) => {
+export const Toolbar = ({ setOpen }) => {
   return (
-    <GridToolbarContainer>
-      <Button startIcon={<AddIcon />} onClick={handleOpen}>
-        Dodaj
-      </Button>
-      <GridToolbarDensitySelector
-        nonce={undefined}
-        onResize={undefined}
-        onResizeCapture={undefined}
-      />
-      <GridToolbarExport />
-    </GridToolbarContainer>
+    <>
+      <GridToolbarContainer>
+        <Button startIcon={<AddIcon />} onClick={() => setOpen(true)}>
+          Dodaj
+        </Button>
+        <GridToolbarDensitySelector
+          nonce={undefined}
+          onResize={undefined}
+          onResizeCapture={undefined}
+        />
+        <GridToolbarExport />
+      </GridToolbarContainer>
+    </>
   );
 };

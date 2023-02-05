@@ -1,17 +1,51 @@
-// Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { ROUTES } from "../../../../common/routes";
 
-// Define a service using a base URL and expected endpoints
-export const pokemonApi = createApi({
-  reducerPath: "pokemonApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://pokeapi.co/api/v2/" }),
+export const personalApi = createApi({
+  reducerPath: "personalApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: import.meta.env.VITE_REST_URL ?? "http://localhost:5000",
+  }),
+  tagTypes: ["Personal"],
   endpoints: (builder) => ({
-    getPokemonByName: builder.query<any, any>({
-      query: (name) => `pokemon/${name}`,
+    getAllPersonal: builder.query<any, void>({
+      query: () => ROUTES.PERSONAL.GET_ALL,
+      providesTags: ["Personal"],
+    }),
+    getPersonal: builder.query<any, string>({
+      query: (id) => `${ROUTES.PERSONAL.GET}/${id}`,
+      providesTags: ["Personal"],
+    }),
+    addPersonal: builder.mutation<void, any>({
+      query: (personal) => ({
+        url: ROUTES.PERSONAL.POST,
+        method: "POST",
+        body: personal,
+      }),
+      invalidatesTags: ["Personal"],
+    }),
+    updatePersonal: builder.mutation<void, any>({
+      query: ({ id, ...rest }) => ({
+        url: `${ROUTES.PERSONAL.UPDATE}/${id}`,
+        method: "UPDATE",
+        body: rest,
+      }),
+      invalidatesTags: ["Personal"],
+    }),
+    deletePersonal: builder.mutation<void, string>({
+      query: (id) => ({
+        url: `${ROUTES.PERSONAL.DELETE}/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Personal"],
     }),
   }),
 });
 
-// Export hooks for usage in functional components, which are
-// auto-generated based on the defined endpoints
-export const { useGetPokemonByNameQuery } = pokemonApi;
+export const {
+  useGetAllPersonalQuery,
+  useGetPersonalQuery,
+  useAddPersonalMutation,
+  useDeletePersonalMutation,
+  useUpdatePersonalMutation,
+} = personalApi;
