@@ -2,7 +2,6 @@ import { GridValueFormatterParams } from "@mui/x-data-grid";
 import moment from "moment";
 import { ComponentEnum } from "../../../common/enum";
 import { choice } from "../../../common/mocks";
-import { tableActions } from "../utils/tableActions";
 
 const useTable = ({ schema, actions }) => {
   const filteredSchema = schema.filter((el) => !!el.name);

@@ -14,7 +14,6 @@ export const personalApi = createApi({
     }),
     getPersonal: builder.query<any, string>({
       query: (id) => `${ROUTES.PERSONAL.GET}/${id}`,
-      providesTags: ["Personal"],
     }),
     addPersonal: builder.mutation<void, any>({
       query: (personal) => ({
@@ -25,16 +24,16 @@ export const personalApi = createApi({
       invalidatesTags: ["Personal"],
     }),
     updatePersonal: builder.mutation<void, any>({
-      query: ({ id, ...rest }) => ({
+      query: ({ id, values }) => ({
         url: `${ROUTES.PERSONAL.UPDATE}/${id}`,
-        method: "UPDATE",
-        body: rest,
+        method: "PATCH",
+        body: values,
       }),
       invalidatesTags: ["Personal"],
     }),
     deletePersonal: builder.mutation<void, string>({
-      query: (id) => ({
-        url: `${ROUTES.PERSONAL.DELETE}/${id}`,
+      query: (_id) => ({
+        url: `${ROUTES.PERSONAL.DELETE}/${_id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Personal"],

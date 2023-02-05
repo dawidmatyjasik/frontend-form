@@ -1,19 +1,22 @@
 import { Box, IconButton, Tooltip } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Delete, Edit, Preview } from "@mui/icons-material";
 import Modal from "./Modal";
 import { Content } from "../../pages/PersonalPage/Content";
-import { useDeletePersonalMutation } from "../../store/api/personal";
+import {
+  useDeletePersonalMutation,
+  useUpdatePersonalMutation,
+} from "../../store/api/personal";
 
-const Actions = ({ params: { row } }) => {
+const Actions = ({ params }) => {
   const [editModal, setEditModal] = useState(false);
 
   const [deletePersonal] = useDeletePersonalMutation();
-  const [updatePersonal] = useDeletePersonalMutation();
+  const [updatePersonal] = useUpdatePersonalMutation();
 
   const handleEdit = (values) => {
     console.log(values);
-    // updatePersonal(values)
+    updatePersonal({ id: params.id, values });
     setEditModal(false);
   };
 
@@ -25,14 +28,14 @@ const Actions = ({ params: { row } }) => {
             <Edit />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Usuń" onClick={() => deletePersonal(row._id)}>
+        <Tooltip title="Usuń" onClick={() => deletePersonal(params.row._id)}>
           <IconButton>
             <Delete />
           </IconButton>
         </Tooltip>
       </Box>
       <Modal open={editModal} setOpen={setEditModal}>
-        <Content onSubmit={handleEdit} id={row._id} />
+        <Content onSubmit={handleEdit} id={params.row._id} />
       </Modal>
     </>
   );

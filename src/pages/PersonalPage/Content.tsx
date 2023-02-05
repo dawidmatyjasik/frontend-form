@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import FormWrapper from "../../components/Form/FormWrapper";
 import { validator } from "../../../../common/personal/validator";
 import { schema } from "../../../../common/personal/schema";
@@ -20,12 +20,18 @@ interface IContent {
 export const Content = ({ id, onSubmit }: IContent) => {
   const resolver = useValidator({ validator });
 
-  const data = id ? useGetPersonalQuery(id).data : defaultValues;
+  const { data, isLoading, isSuccess } = useGetPersonalQuery(id);
 
   const methods = useForm({
     ...resolver,
-    defaultValues: data,
+    defaultValues,
   });
+
+  useEffect(() => {
+    if (isSuccess) {
+      methods.reset(data);
+    }
+  }, [isSuccess]);
 
   return (
     <>

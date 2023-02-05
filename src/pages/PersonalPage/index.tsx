@@ -24,6 +24,7 @@ export const PersonalPage = () => {
 
   const handleSubmit = async (values) => {
     await addData(values);
+    setSendModal(false);
   };
 
   if (isLoading) {
