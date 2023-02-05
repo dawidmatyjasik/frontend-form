@@ -5,6 +5,7 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { parseErrors } from "../../utils/parseErrors";
+import moment from "moment";
 
 type FormInputProps = {
   name: string;
@@ -33,7 +34,7 @@ const FormInputDate: FC<FormInputProps> = ({
             <DatePicker
               inputFormat="DD/MM/YYYY"
               onChange={(date) => {
-                field.onChange(date.toDate());
+                field.onChange(moment(date).format("YYYY-MM-DD"));
               }}
               value={field.value}
               {...dateProps}
