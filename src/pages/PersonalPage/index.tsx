@@ -1,50 +1,65 @@
-import { useForm } from "react-hook-form";
-import { FC } from "react";
-import FormWrapper from "../../components/Form/FormWrapper";
-import { validator } from "../../../../common/personal/validator";
-import { defaultValues } from "../../../../common/personal/init";
+import { useState } from "react";
+import { DataGrid } from "@mui/x-data-grid";
+import Grid from "@mui/material/Grid";
 import { schema } from "../../../../common/personal/schema";
-import UserActions from "../../components/Form/UserAction";
-import { FormButton } from "../../components/Form/FormButton";
-import { apiRequest } from "../../hooks/useAxios";
-import { ROUTES } from "../../../../common/routes";
-import { Button } from "@mui/material";
-import { useValidator } from "../../hooks/useValidator";
+import { Toolbar } from "../../components/Table/Toolbar";
+import Modal from "../../components/Table/Modal";
+import Wrapper from "../../components/Table/Wrapper";
+import { Content } from "./Content";
+import {
+  useAddPersonalMutation,
+  useGetAllPersonalQuery,
+} from "../../store/api/personal";
+import useTable from "../../hooks/useTable";
+import { tableActions } from "../../utils/tableActions";
 
-export const PersonalPage: FC = () => {
-  const resolver = useValidator({ validator });
-  const methods = useForm({
-    ...resolver,
-    defaultValues,
-  });
+export const PersonalPage = () => {
+  const { data = [], isLoading } = useGetAllPersonalQuery();
+  const [addData] = useAddPersonalMutation();
+  const [sendModal, setSendModal] = useState(false);
 
-  const onSubmitHandler = async (values) => {
-    values["phone_number"] = "000000000"; // TODO: format phone_number
-    await apiRequest("post", ROUTES.PERSONAL.POST, values);
+  const actions = tableActions;
+
+  const { colsWithActions } = useTable({ schema, actions });
+
+  const handleSubmit = async (values) => {
+    await addData(values);
+    setSendModal(false);
   };
 
-  const handleGet = async () => {
-    const { data } = await apiRequest("get", ROUTES.PERSONAL.GET_ALL);
-    console.log(data);
-  };
+  if (isLoading) {
+    return <></>;
+  }
+
   return (
-    <>
-      <FormWrapper methods={methods} onSubmitHandler={onSubmitHandler}>
-        {schema.map(({ referer, refs, ...rest }, index) => {
-          return (
-            <UserActions
-              action={rest}
-              referer={referer && referer(methods, refs)}
-              methods={methods}
-              key={index}
-            />
-          );
-        })}
-        <FormButton>Wyślij</FormButton>
-        <Button onClick={handleGet}>Pobierz</Button>
-        <Button>Pobierz pojedyncze</Button>
-        <Button>Usuń</Button>
-      </FormWrapper>
-    </>
+    <Wrapper>
+      <Grid item xs={12} style={{ flexGrow: 1 }}>
+        <DataGrid
+          initialState={{
+            pagination: {
+              pageSize: 15,
+            },
+          }}
+          rows={data}
+          columns={colsWithActions}
+          getRowId={(row: any) => row._id}
+          components={{
+            Toolbar: Toolbar,
+          }}
+          componentsProps={{
+            toolbar: { setOpen: setSendModal },
+            pagination: {
+              labelRowsPerPage: "Liczba rekordów",
+              rowsPerPageOptions: [10, 15, 20],
+            },
+          }}
+          localeText={{ toolbarDensity: "Gęstość" }}
+          rowsPerPageOptions={[10, 15, 20]}
+        />
+      </Grid>
+      <Modal open={sendModal} setOpen={setSendModal}>
+        <Content onSubmit={handleSubmit} />
+      </Modal>
+    </Wrapper>
   );
 };
