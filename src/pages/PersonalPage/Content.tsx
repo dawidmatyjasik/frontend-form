@@ -20,7 +20,9 @@ interface IContent {
 export const Content = ({ id, onSubmit }: IContent) => {
   const resolver = useValidator({ validator });
 
-  const { data, isLoading, isSuccess } = useGetPersonalQuery(id);
+  const { data, isLoading, isSuccess } = useGetPersonalQuery(id, {
+    skip: !id,
+  });
 
   const methods = useForm({
     ...resolver,
