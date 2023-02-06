@@ -12,6 +12,8 @@ import {
 } from "../../store/api/personal";
 import useTable from "../../hooks/useTable";
 import { tableActions } from "../../utils/tableActions";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const PersonalPage = () => {
   const { data = [], isLoading } = useGetAllPersonalQuery();
@@ -25,11 +27,8 @@ export const PersonalPage = () => {
   const handleSubmit = async (values) => {
     await addData(values);
     setSendModal(false);
+    toast.success("Dodano!");
   };
-
-  if (isLoading) {
-    return <></>;
-  }
 
   return (
     <Wrapper>
@@ -47,7 +46,11 @@ export const PersonalPage = () => {
             Toolbar: Toolbar,
           }}
           componentsProps={{
-            toolbar: { setOpen: setSendModal },
+            toolbar: {
+              setOpen: setSendModal,
+              showQuickFilter: true,
+              quickFilterProps: { debounceMs: 500 },
+            },
             pagination: {
               labelRowsPerPage: "Liczba rekordów",
               rowsPerPageOptions: [10, 15, 20],
@@ -55,11 +58,18 @@ export const PersonalPage = () => {
           }}
           localeText={{ toolbarDensity: "Gęstość" }}
           rowsPerPageOptions={[10, 15, 20]}
+          disableSelectionOnClick
         />
       </Grid>
       <Modal open={sendModal} setOpen={setSendModal}>
         <Content onSubmit={handleSubmit} />
       </Modal>
+      <ToastContainer
+        position="top-right"
+        pauseOnHover={false}
+        hideProgressBar
+        autoClose={1000}
+      />
     </Wrapper>
   );
 };

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Delete, Edit, Preview } from "@mui/icons-material";
 import Modal from "./Modal";
 import { Content } from "../../pages/PersonalPage/Content";
+import { toast } from "react-toastify";
 import {
   useDeletePersonalMutation,
   useUpdatePersonalMutation,
@@ -18,6 +19,12 @@ const Actions = ({ params }) => {
     console.log(values);
     updatePersonal({ id: params.id, values });
     setEditModal(false);
+    toast.success("Zaktualizowano!");
+  };
+
+  const handleDelete = () => {
+    deletePersonal(params.row._id);
+    toast.success("Usunięto!");
   };
 
   return (
@@ -28,7 +35,7 @@ const Actions = ({ params }) => {
             <Edit />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Usuń" onClick={() => deletePersonal(params.row._id)}>
+        <Tooltip title="Usuń" onClick={handleDelete}>
           <IconButton>
             <Delete />
           </IconButton>
