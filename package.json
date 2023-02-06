@@ -38,6 +38,7 @@
     "react-input-mask": "^2.0.4",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.2",
+    "react-toastify": "^9.1.1",
     "yup": "^0.32.11",
     "zod": "^3.20.2"
   },
