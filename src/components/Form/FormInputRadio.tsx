@@ -9,8 +9,10 @@ import Radio from "@mui/material/Radio";
 
 type FormInputProps = {
   name: string;
-  options: string[];
+  options: {};
   props?: {};
+  radioProps: {};
+  yesNo: boolean;
 } & TextFieldProps;
 
 const FormInputRadio: FC<FormInputProps> = ({
@@ -18,6 +20,7 @@ const FormInputRadio: FC<FormInputProps> = ({
   props,
   label,
   options,
+  radioProps,
 }) => {
   const {
     control,
@@ -32,11 +35,15 @@ const FormInputRadio: FC<FormInputProps> = ({
           control={control}
           name={name}
           render={({ field: { onChange, ...field } }) => (
-            <RadioGroup onChange={(e) => onChange(+e.target.value)} {...field}>
-              {options.map((option: string, index: number) => (
+            <RadioGroup
+              onChange={(e) => onChange(+e.target.value)}
+              {...field}
+              {...radioProps}
+            >
+              {Object.values(options).map((option: any, index: number) => (
                 <FormControlLabel
                   key={index}
-                  value={index + 1}
+                  value={+Object.keys(options)[index]}
                   control={<Radio />}
                   label={option}
                 />

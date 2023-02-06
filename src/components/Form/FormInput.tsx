@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { useFormContext, Controller } from "react-hook-form";
 import { Grid, TextField, TextFieldProps } from "@mui/material";
+import { parseErrors } from "../../utils/parseErrors";
 
 type FormInputProps = {
   name: string;
@@ -25,9 +26,7 @@ const FormInput: FC<FormInputProps> = ({ name, props, ...otherProps }) => {
             variant="outlined"
             error={!!errors[name]}
             fullWidth={true}
-            helperText={
-              errors[name] ? (errors[name]?.message as unknown as string) : ""
-            }
+            helperText={parseErrors({ errors, name })}
           />
         )}
       />

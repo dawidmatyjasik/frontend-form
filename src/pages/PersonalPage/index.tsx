@@ -1,31 +1,65 @@
-import { useForm, SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { FC } from "react";
-import FormWrapper from "../../components/Form/FormWrapper";
+import { useState } from "react";
+import { DataGrid } from "@mui/x-data-grid";
+import Grid from "@mui/material/Grid";
+import { schema } from "../../../../common/personal/schema";
+import { Toolbar } from "../../components/Table/Toolbar";
+import Modal from "../../components/Table/Modal";
+import Wrapper from "../../components/Table/Wrapper";
+import { Content } from "./Content";
 import {
-  personalValidator,
-  ILogin,
-} from "../../../../common/personal/validator";
-import { defaultValues } from "../../../../common/personal/init";
-import { personalSchema } from "../../../../common/personal/personalSchema";
-import UserActions from "../../components/Form/UserAction";
+  useAddPersonalMutation,
+  useGetAllPersonalQuery,
+} from "../../store/api/personal";
+import useTable from "../../hooks/useTable";
+import { tableActions } from "../../utils/tableActions";
 
-export const PersonalPage: FC = () => {
-  const methods = useForm<ILogin>({
-    resolver: zodResolver(personalValidator),
-    defaultValues,
-  });
+export const PersonalPage = () => {
+  const { data = [], isLoading } = useGetAllPersonalQuery();
+  const [addData] = useAddPersonalMutation();
+  const [sendModal, setSendModal] = useState(false);
 
-  const onSubmitHandler: SubmitHandler<ILogin> = (values: ILogin) => {
-    console.log(values);
+  const actions = tableActions;
+
+  const { colsWithActions } = useTable({ schema, actions });
+
+  const handleSubmit = async (values) => {
+    await addData(values);
+    setSendModal(false);
   };
+
+  if (isLoading) {
+    return <></>;
+  }
+
   return (
-    <>
-      <FormWrapper methods={methods} onSubmitHandler={onSubmitHandler}>
-        {personalSchema.map((action, index) => {
-          return <UserActions action={action} key={index} />;
-        })}
-      </FormWrapper>
-    </>
+    <Wrapper>
+      <Grid item xs={12} style={{ flexGrow: 1 }}>
+        <DataGrid
+          initialState={{
+            pagination: {
+              pageSize: 15,
+            },
+          }}
+          rows={data}
+          columns={colsWithActions}
+          getRowId={(row: any) => row._id}
+          components={{
+            Toolbar: Toolbar,
+          }}
+          componentsProps={{
+            toolbar: { setOpen: setSendModal },
+            pagination: {
+              labelRowsPerPage: "Liczba rekordów",
+              rowsPerPageOptions: [10, 15, 20],
+            },
+          }}
+          localeText={{ toolbarDensity: "Gęstość" }}
+          rowsPerPageOptions={[10, 15, 20]}
+        />
+      </Grid>
+      <Modal open={sendModal} setOpen={setSendModal}>
+        <Content onSubmit={handleSubmit} />
+      </Modal>
+    </Wrapper>
   );
 };

@@ -1,70 +1,91 @@
-import { styled } from "@mui/material/styles";
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Badge from "@mui/material/Badge";
-import IconButton from "@mui/material/IconButton";
+import { useRef, useState } from "react";
+import styled from "@emotion/styled";
+import {
+  AppBar,
+  Avatar,
+  Badge,
+  Box,
+  IconButton,
+  Toolbar,
+  Tooltip,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import { drawerWidth } from "../utils/utils";
+import SearchIcon from "@mui/icons-material/Search";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { AccountPopover } from "../Popover/Popover";
 
-interface AppBarProps extends MuiAppBarProps {
-  open?: boolean;
+interface INavbar {
+  onSidebarOpen: (props: any) => void;
 }
 
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})<AppBarProps>(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(["width", "margin"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
+const DashboardNavbarRoot = styled(AppBar)(({ theme }: any) => ({
+  backgroundColor: theme.palette.background.paper,
+  boxShadow: theme.shadows[3],
 }));
 
-export const Navbar = ({ toggleDrawer, open }: any) => {
+export const Navbar = (props: INavbar) => {
+  const { onSidebarOpen, ...other } = props;
+  const settingsRef = useRef(null);
+  const [openAccountPopover, setOpenAccountPopover] = useState(false);
+
   return (
-    <AppBar position="absolute" open={open}>
-      <Toolbar
+    <>
+      <DashboardNavbarRoot
         sx={{
-          pr: "24px", // keep right padding when drawer closed
+          left: {
+            lg: 280,
+          },
+          width: {
+            lg: "calc(100% - 280px)",
+          },
         }}
+        {...other}
       >
-        <IconButton
-          edge="start"
-          color="inherit"
-          aria-label="open drawer"
-          onClick={toggleDrawer}
+        <Toolbar
+          disableGutters
           sx={{
-            marginRight: "36px",
-            ...(open && { display: "none" }),
+            minHeight: 64,
+            left: 0,
+            px: 2,
           }}
         >
-          <MenuIcon />
-        </IconButton>
-        <Typography
-          component="h1"
-          variant="h6"
-          color="inherit"
-          noWrap
-          sx={{ flexGrow: 1 }}
-        >
-          Dashboard
-        </Typography>
-        <IconButton color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-      </Toolbar>
-    </AppBar>
+          <IconButton
+            onClick={onSidebarOpen}
+            sx={{
+              display: {
+                xs: "inline-flex",
+                lg: "none",
+              },
+            }}
+          >
+            <MenuIcon fontSize="small" />
+          </IconButton>
+          <Tooltip title="Search">
+            <IconButton sx={{ ml: 1 }}>
+              <SearchIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
+          <Box sx={{ flexGrow: 1 }} />
+          <Avatar
+            onClick={() => setOpenAccountPopover(true)}
+            ref={settingsRef}
+            sx={{
+              cursor: "pointer",
+              height: 40,
+              width: 40,
+              ml: 1,
+            }}
+            src="https://toppng.com/uploads/preview/avatar-png-11554021819gij72acuim.png"
+          >
+            <AccountCircleIcon fontSize="small" />
+          </Avatar>
+        </Toolbar>
+      </DashboardNavbarRoot>
+      <AccountPopover
+        anchorEl={settingsRef.current}
+        open={openAccountPopover}
+        onClose={() => setOpenAccountPopover(false)}
+      />
+    </>
   );
 };

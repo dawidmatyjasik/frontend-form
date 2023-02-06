@@ -1,10 +1,12 @@
 import { FC } from "react";
 import { useFormContext, Controller } from "react-hook-form";
 import { Grid, TextField, TextFieldProps, MenuItem } from "@mui/material";
+import { parseErrors } from "../../utils/parseErrors";
 
 type FormInputProps = {
   name: string;
-  options: string[];
+  options: {};
+  yesNo?: boolean;
   props?: {};
 } & TextFieldProps;
 
@@ -23,7 +25,6 @@ const FormInputSelect: FC<FormInputProps> = ({
       <Controller
         control={control}
         name={name}
-        defaultValue=""
         render={({ field: { onChange, ...field } }) => (
           <TextField
             {...field}
@@ -33,15 +34,15 @@ const FormInputSelect: FC<FormInputProps> = ({
             variant="outlined"
             error={!!errors[name]}
             fullWidth={true}
-            helperText={
-              errors[name] ? (errors[name]?.message as unknown as string) : ""
-            }
+            helperText={parseErrors({ errors, name })}
           >
-            {options?.map((option, index) => (
-              <MenuItem key={index} value={index + 1}>
-                {option}
-              </MenuItem>
-            ))}
+            {Object.values(options).map((option: any, index) => {
+              return (
+                <MenuItem key={index} value={+Object.keys(options)[index]}>
+                  {option}
+                </MenuItem>
+              );
+            })}
           </TextField>
         )}
       />

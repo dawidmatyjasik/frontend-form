@@ -4,13 +4,21 @@ import { Grid, TextField, TextFieldProps } from "@mui/material";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { parseErrors } from "../../utils/parseErrors";
+import moment from "moment";
 
 type FormInputProps = {
   name: string;
   props?: {};
+  dateProps?: {};
 } & TextFieldProps;
 
-const FormInputDate: FC<FormInputProps> = ({ name, props, ...otherProps }) => {
+const FormInputDate: FC<FormInputProps> = ({
+  name,
+  props,
+  dateProps,
+  ...otherProps
+}) => {
   const {
     control,
     formState: { errors },
@@ -20,15 +28,15 @@ const FormInputDate: FC<FormInputProps> = ({ name, props, ...otherProps }) => {
       <Controller
         control={control}
         name={name}
-        defaultValue=""
         render={({ field }) => (
           <LocalizationProvider dateAdapter={AdapterMoment}>
             <DatePicker
               inputFormat="DD/MM/YYYY"
               onChange={(date) => {
-                field.onChange(date.toDate());
+                field.onChange(moment(date).format("YYYY-MM-DD"));
               }}
               value={field.value}
+              {...dateProps}
               renderInput={(params) => (
                 <TextField
                   {...field}
@@ -36,11 +44,7 @@ const FormInputDate: FC<FormInputProps> = ({ name, props, ...otherProps }) => {
                   {...otherProps}
                   error={!!errors[name]}
                   fullWidth={true}
-                  helperText={
-                    errors[name]
-                      ? (errors[name]?.message as unknown as string)
-                      : ""
-                  }
+                  helperText={parseErrors({ errors, name })}
                 />
               )}
             />
